@@ -295,8 +295,17 @@ pub mod persist {
         pub fn persist(self, path: impl AsRef<Path>) -> Result<Option<std::fs::File>, Error<Writable>> {
             let res = REGISTRY.remove(&self.id);
 
-            match res.and_then(|(_k, v)| v.map(|v| v.persist(path))) {
+            gix_trace::trace! {
+                self.id,
+                path = ?path.as_ref().display(),
+                res = ?res.as_ref().map(|(index, _)| index),
+                "persist",
+            };
+
+            match res.and_then(|(_k, v)| v.map(|v| v.persist(path.as_ref()))) {
                 Some(Ok(Some(file))) => {
+                    gix_trace::trace!(path = ?path.as_ref().display(), "persisted");
+
                     std::mem::forget(self);
                     Ok(Some(file))
                 }
@@ -305,6 +314,8 @@ pub mod persist {
                     Ok(None)
                 }
                 Some(Err((err, tempfile))) => {
+                    gix_trace::trace!(path = ?path.as_ref().display(), error = ?err, "errored");
+
                     expect_none(REGISTRY.insert(self.id, Some(tempfile)));
                     Err(Error::<Writable> {
                         error: err,

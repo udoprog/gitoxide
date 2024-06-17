@@ -38,6 +38,7 @@ gix-hash = { version = "^0.14.2", path = "../gix-hash" }
 gix-chunk = { version = "^0.4.8", path = "../gix-chunk" }
 gix-object = { version = "^0.42.2", path = "../gix-object" }
 gix-hashtable = { version = "^0.5.2", path = "../gix-hashtable" }
+gix-trace = { version = "0.1.9", path = "../gix-trace" }
 
 # for streaming of packs (input, output)
 gix-traverse = { version = "^0.39.1", path = "../gix-traverse", optional = true }
@@ -55,7 +56,6 @@ clru = { version = "0.6.1", optional = true }
 serde = { version = "1.0.114", optional = true, default-features = false, features = ["derive"] }
 ## If enabled, `cargo doc` will see feature documentation from this manifest.
 document-features = { version = "0.2.0", optional = true }
-
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 gix-tempfile = { version = "^14.0.0", default-features = false, path = "../gix-tempfile" }

@@ -131,4 +131,10 @@ impl File {
     }
 }
 
+impl Drop for File {
+    fn drop(&mut self) {
+        gix_trace::trace!(path = ?self.path.display(), "close data");
+    }
+}
+
 pub(crate) mod delta;

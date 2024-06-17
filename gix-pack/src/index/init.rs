@@ -30,6 +30,8 @@ impl index::File {
     }
 
     fn at_inner(path: &Path, object_hash: gix_hash::Kind) -> Result<index::File, Error> {
+        gix_trace::trace!(path = ?path.display(), "open data");
+
         let data = crate::mmap::read_only(path).map_err(|source| Error::Io {
             source,
             path: path.to_owned(),

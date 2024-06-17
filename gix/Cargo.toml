@@ -289,6 +289,7 @@ progress-tree = ["prodash/progress-tree"]
 ## Print debugging information about usage of object database caches, useful for tuning cache sizes.
 cache-efficiency-debug = ["gix-features/cache-efficiency-debug"]
 
+tracing = ["gix-trace/tracing"]
 
 [dependencies]
 gix-macros = { version = "^0.1.5", path = "../gix-macros" }

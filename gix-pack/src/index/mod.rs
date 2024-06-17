@@ -134,6 +134,12 @@ impl File {
     }
 }
 
+impl Drop for File {
+    fn drop(&mut self) {
+        gix_trace::trace!(path = ?self.path.display(), "close index");
+    }
+}
+
 const V2_SIGNATURE: &[u8] = b"\xfftOc";
 ///
 #[allow(clippy::empty_docs)]

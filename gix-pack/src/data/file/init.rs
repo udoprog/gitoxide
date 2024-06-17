@@ -13,6 +13,8 @@ impl data::File {
     }
 
     fn at_inner(path: &Path, object_hash: gix_hash::Kind) -> Result<data::File, data::header::decode::Error> {
+        gix_trace::trace!(path = ?path.display(), "open data");
+
         use crate::data::header::N32_SIZE;
         let hash_len = object_hash.len_in_bytes();
 
